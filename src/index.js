@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     //body
     const dogContainer = document.getElementById("dog-image-container");
     const dogBreeds = document.getElementById("dog-breeds");
+    const breedDropdown = document.getElementById("breed-dropdown");
 
     // fetching images from imgUrl - Challenge One
     fetch(imgUrl)
@@ -45,7 +46,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
             // Use for...in to iterate over Object of breeds
             // console.log(Object.keys(breeds));
             for (const breed in breeds) {
-                console.log(breeds[breed]);
+                // console.log(breeds[breed]);
                 const li = document.createElement("li");
                 li.innerHTML = breed;
                 dogBreeds.appendChild(li);
@@ -54,10 +55,36 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
     // Create click event for breeds list - Challenge Three
     
-    dogBreeds.addEventListener("click", (event) => 
-    {
+    dogBreeds.addEventListener("click", (event) => {
         event.target.style.color = "Fuchsia";
     });
 
+
+    // Add function where user can filter breeds list - Challenge Four
+    breedDropdown.addEventListener("change", (event) => {
+        console.log(breedDropdown.value)
+        let filter = breedDropdown.value;
+        while (dogBreeds.hasChildNodes()) {
+            dogBreeds.removeChild(dogBreeds.firstChild)
+        };
+
+        fetch(breedUrl)
+        .then(function(response){
+            return response.json();
+        })
+        .then(function(breedsObject){
+
+            const breeds = breedsObject.message 
+
+            for (const breed in breeds) {
+                // Checking for first letter of the breed to equal the selected filter letter
+                if (breed[0] === filter) {
+                    const li = document.createElement("li");
+                    li.innerHTML = breed;
+                    dogBreeds.appendChild(li);
+                }
+            }
+        });
+    });
 
 });

@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', (event) => {
 
-    console.log('%c Challenge Two', 'color: firebrick');
+    console.log('%c Challenge Three', 'color: firebrick');
 
     const imgUrl = "https://dog.ceo/api/breeds/image/random/4";
     const breedUrl = 'https://dog.ceo/api/breeds/list/all';
@@ -49,6 +49,15 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 const li = document.createElement("li");
                 li.innerHTML = breed;
                 dogBreeds.appendChild(li);
-            };
-        })
+        };
+    })
+
+    // Create click event for breeds list - Challenge Three
+    
+    dogBreeds.addEventListener("click", (event) => 
+    {
+        event.target.style.color = "Fuchsia";
+    });
+
+
 });
